@@ -48,7 +48,7 @@ function Login() {
       email,
       password,
     }
-    //console.log(userData)
+    console.log(userData)
 
     dispatch(login(userData))
   }
@@ -82,7 +82,7 @@ function Login() {
           <div className='form-group'>
             <input
               type='password'
-              className='form-control outline-none'
+              className='form-control ou'
               id='password'
               name='password'
               value={password}

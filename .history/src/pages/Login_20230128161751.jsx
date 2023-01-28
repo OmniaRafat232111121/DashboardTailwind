@@ -5,8 +5,19 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { login, reset } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
-
+import { useFormik } from 'formik'
+import { LoginSchema } from '../utils/Validation'
 function Login() {
+  const {values,handleChange,handleBlur}= useFormik({
+    initialValues: {
+      email: '',
+      password:''
+    },
+     validationSchema: LoginSchema
+    
+  })
+  
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -34,12 +45,12 @@ function Login() {
     dispatch(reset())
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
-  }
+  // const onChange = (e) => {
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     [e.target.name]: e.target.value,
+  //   }))
+  // }
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -48,7 +59,7 @@ function Login() {
       email,
       password,
     }
-    //console.log(userData)
+    console.log(userData)
 
     dispatch(login(userData))
   }
@@ -74,10 +85,13 @@ function Login() {
               className='form-control outline-none'
               id='email'
               name='email'
-              value={email}
+              value={values.email}
               placeholder='Enter your email'
-              onChange={onChange}
+              onChange={handleChange}
+              onBlur={handleBlur}
+             
             />
+           
           </div>
           <div className='form-group'>
             <input
@@ -85,9 +99,10 @@ function Login() {
               className='form-control outline-none'
               id='password'
               name='password'
-              value={password}
+              value={values.password}
               placeholder='Enter password'
-              onChange={onChange}
+              onChange={handleChange}
+               onBlur={handleBlur}
             />
           </div>
 

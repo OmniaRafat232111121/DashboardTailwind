@@ -5,8 +5,14 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { login, reset } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
-
+import { useFormik } from 'formik'
 function Login() {
+  const formik = useFormik({
+    initialValues: {
+      email:''
+    }
+    
+  })
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -34,12 +40,12 @@ function Login() {
     dispatch(reset())
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
-  }
+  // const onChange = (e) => {
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     [e.target.name]: e.target.value,
+  //   }))
+  // }
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -48,7 +54,7 @@ function Login() {
       email,
       password,
     }
-    //console.log(userData)
+    console.log(userData)
 
     dispatch(login(userData))
   }
@@ -74,9 +80,9 @@ function Login() {
               className='form-control outline-none'
               id='email'
               name='email'
-              value={email}
+              value={formik.values.email}
               placeholder='Enter your email'
-              onChange={onChange}
+              onChange={formik.onChange}
             />
           </div>
           <div className='form-group'>
@@ -85,9 +91,9 @@ function Login() {
               className='form-control outline-none'
               id='password'
               name='password'
-              value={password}
+              value={formik.values.password}
               placeholder='Enter password'
-              onChange={onChange}
+              onChange={formik.onChange}
             />
           </div>
 

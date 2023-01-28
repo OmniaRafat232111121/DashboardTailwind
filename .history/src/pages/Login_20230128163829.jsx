@@ -5,8 +5,27 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { login, reset } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
-
+import { useFormik } from 'formik'
+import { LoginSchema } from '../utils/Validation'
 function Login() {
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+  handleSubmit,
+    handleBlur,
+    handleChange,
+   }= useFormik({
+    initialValues: {
+      email: '',
+      password:''
+    },
+     validationSchema: LoginSchema
+    
+  })
+  
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -34,12 +53,12 @@ function Login() {
     dispatch(reset())
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
-  }
+  // const onChange = (e) => {
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     [e.target.name]: e.target.value,
+  //   }))
+  // }
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -48,7 +67,7 @@ function Login() {
       email,
       password,
     }
-    //console.log(userData)
+    console.log(userData)
 
     dispatch(login(userData))
   }
@@ -68,34 +87,8 @@ function Login() {
 
       <section className='form  p-10 rounded-md mt-10'>
         <form onSubmit={onSubmit}>
-          <div className='form-group'>
-            <input
-              type='email'
-              className='form-control outline-none'
-              id='email'
-              name='email'
-              value={email}
-              placeholder='Enter your email'
-              onChange={onChange}
-            />
-          </div>
-          <div className='form-group'>
-            <input
-              type='password'
-              className='form-control outline-none'
-              id='password'
-              name='password'
-              value={password}
-              placeholder='Enter password'
-              onChange={onChange}
-            />
-          </div>
-
-          <div className='form-group'>
-            <button type='submit' className='btn btn-block'>
-              Submit
-            </button>
-          </div>
+          <formik>
+          </formik>
         </form>
 
 

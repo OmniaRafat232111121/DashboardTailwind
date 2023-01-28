@@ -7,6 +7,7 @@ import { login, reset } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
 
 function Login() {
+  const formik=use
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -48,7 +49,7 @@ function Login() {
       email,
       password,
     }
-    //console.log(userData)
+    console.log(userData)
 
     dispatch(login(userData))
   }

@@ -5,8 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { login, reset } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
-
+import { useFormik } from 'formik'
+impo
 function Login() {
+  const formik = useFormik({
+    
+  })
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -48,7 +52,7 @@ function Login() {
       email,
       password,
     }
-    //console.log(userData)
+    console.log(userData)
 
     dispatch(login(userData))
   }
