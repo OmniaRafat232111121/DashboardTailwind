@@ -4,7 +4,6 @@ login:-
 1-email
 2-password
 login
-
 {
     "email": "eve.holt@reqres.in",
     "password": "cityslicka"
